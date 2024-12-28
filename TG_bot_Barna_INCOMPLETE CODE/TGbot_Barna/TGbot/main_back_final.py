@@ -4,11 +4,17 @@
 # FROM AND IMPORT DELETE
 
 ############ DONT START ################
-
+TG IS A BOT. THE CODE IS INCOMPLETE. Some of the code has been deleted.  Copyright
+TG БОТ. КОД НЕПОЛНЫЙ. Часть кода была удалена.  АВТОРСКОЕ ПРАВО
  DONT START
 
 
-
+TG IS A BOT. THE CODE IS INCOMPLETE. Some of the code has been deleted.  Copyright
+TG БОТ. КОД НЕПОЛНЫЙ. Часть кода была удалена.  АВТОРСКОЕ ПРАВО
+TG IS A BOT. THE CODE IS INCOMPLETE. Some of the code has been deleted.  Copyright
+TG БОТ. КОД НЕПОЛНЫЙ. Часть кода была удалена.  АВТОРСКОЕ ПРАВО
+TG IS A BOT. THE CODE IS INCOMPLETE. Some of the code has been deleted.  Copyright
+TG БОТ. КОД НЕПОЛНЫЙ. Часть кода была удалена.  АВТОРСКОЕ ПРАВО
 
 
 
