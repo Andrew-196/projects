@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template_string, send_file
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
@@ -22,40 +21,33 @@ def index():
 
 @app.route('/download_pdf')
 def download_pdf():
-   
     sort_data = ["04670127280492", "04670127280478", "04670127280478"]
     stock_data = ["8", "6", "10"]
-   
     pdf_path = "report.pdf"  
 
-  
     generate_pdf(sort_data, stock_data, pdf_path)
 
- 
     return send_file(pdf_path, as_attachment=True)
 
 def generate_pdf(sort_data, stock_data, pdf_path):
     c = canvas.Canvas(pdf_path, pagesize=letter)
     width, height = letter
 
-   
-    pdfmetrics.registerFont(TTFont('ArialUnicode', 'ARIALUNI.TTF'))  # Убедитесь, что файл доступен
-    c.setFont("ArialUnicode", 12)  # Установка шрифта
+    pdfmetrics.registerFont(TTFont('ArialUnicode', 'ARIALUNI.TTF'))  
+    c.setFont("ArialUnicode", 12) 
 
-    # Заголовки таблицы
+  
     c.drawString(100, height - 50, "Отчет о товарах")
     c.drawString(100, height - 70, "GTIN")
     c.drawString(250, height - 70, "Остаток")
   
 
-    # Данные
-    y_position = height - 90  # Начальная позиция для данных
+    y_position = height - 90  
 
     for gtin, stock in zip(sort_data, stock_data, ):
         c.drawString(100, y_position, gtin)
         c.drawString(250, y_position, stock)
-        # c.drawString(350, y_position, name)
-        y_position -= 20  # Уменьшаем позицию для следующей строки
+        y_position -= 20  
 
     c.save()
 
@@ -66,36 +58,41 @@ def generate_pdf(sort_data, stock_data, pdf_path):
 
 
 
+
+
+
 def process_data():
     sort_data = {}
-    name_data = {}  # Инициализируем как словарь
+    name_data = {} 
     with open(r"C:/Users/User/Desktop/SortWaterTable/new.txt", 'r', encoding='utf-8') as f:
         current_sort = None
         for line in f:
             x = line.strip()
-            # Обработка первого продукта
+
+            # поиск первой строки в new.txt
             if '04670127280492 напиток безалкогольный сильногазированный «колокольчик» флэшшш тайм 1.5' in x.lower():
                 current_sort = '04670127280492'
-                name_data[current_sort] = 'Напиток безалкогольный сильногазированный «колокольчик» флэшшш тайм 1.5'  # Обновляем name_data
+                name_data[current_sort] = 'Напиток безалкогольный сильногазированный «колокольчик» флэшшш тайм 1.5'
                 if current_sort not in sort_data:
                     sort_data[current_sort] = []
+            # поиск творой строки в new.txt и создан ли current_sort
             elif current_sort and 'напиток безалкогольный сильногазированный «колокольчик» флэшшш тайм количество' in x.lower():
                 s = re.findall(r"[-+]?\d*\.\d+|\d+", x)
                 if s:
                     sort_data[current_sort].extend(map(int, s))
-                current_sort = None  # Сбрасываем current_sort после обработки
+                current_sort = None  # сброс current_sort 
 
-            # Обработка второго продукта
+            
             elif '04670127280478 напиток безалкогольный сильногазированный «кола» флэшшш тайм 0,5' in x.lower():
                 current_sort = '04670127280478'
-                name_data[current_sort] = 'Напиток безалкогольный сильногазированный «кола» флэшшш тайм 0,5'  # Обновляем name_data
+                name_data[current_sort] = 'Напиток безалкогольный сильногазированный «кола» флэшшш тайм 0,5'  
                 if current_sort not in sort_data:
                     sort_data[current_sort] = []
             elif current_sort and 'напиток безалкогольный сильногазированный «кола» флэшшш тайм количество' in x.lower():
                 s = re.findall(r"[-+]?\d*\.\d+|\d+", x)
                 if s:
                     sort_data[current_sort].extend(map(int, s))
-                current_sort = None  # Сбрасываем current_sort после обработки
+                current_sort = None 
 
             
             elif '04670127280997 напиток безалкогольный сильногазированный специального назначения «баранчинский»' in x.lower():
@@ -147,8 +144,8 @@ def process_data():
 
 
     print('----------------------------')
-    print("sort_data:", sort_data)  # Отладочное сообщение
-    print("name_data:", name_data)  # Отладочное сообщение
+    print("sort_data:", sort_data)  
+    print("name_data:", name_data)  
     print('----------------------------')
     return sort_data, name_data
 
@@ -181,7 +178,7 @@ def render_html(sort_data, name_data):
     
     for gtin, quantities in sort_data.items():
         total_quantity = sum(quantities)
-        # Получаем название продукта для текущего GTIN
+  
         product_name = name_data.get(gtin, "Неизвестно")
         
         html_content += f'''
